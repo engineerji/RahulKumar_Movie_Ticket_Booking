@@ -11,4 +11,5 @@ public interface ITicketService {
 	Ticket getTicket(int ticketId);
 	void cancelTicket(int ticketId);
 	Ticket createTicket(int noOfSeats,List<String> seatNames,String screenName);
+	void removeTicket(Ticket ticket);
 }

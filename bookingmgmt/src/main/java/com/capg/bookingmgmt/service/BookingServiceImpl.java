@@ -29,6 +29,9 @@ public class BookingServiceImpl implements IBookingService{
 	@Autowired
 	private ITransactionDao transactionDao;
 	
+	@Autowired
+	ITicketService ticketService;
+	
 	@Override
 	public Booking addBooking(Booking booking) {
 		booking = bookingDao.save(booking);
@@ -39,7 +42,7 @@ public class BookingServiceImpl implements IBookingService{
 	public Booking fetchBooking(int bookingId) {
 		Optional<Booking> option= bookingDao.findById(bookingId);
 		if(!option.isPresent()) {
-			throw new BookingNotFoundException("Bookiing id is wrong. No booking exist with this booking id :"+bookingId);
+			throw new BookingNotFoundException("Booking id is wrong. No booking exist with this booking id :"+bookingId);
 		}
 		Booking booking = option.get();
 		return booking;
@@ -57,10 +60,19 @@ public class BookingServiceImpl implements IBookingService{
 		Ticket ticket=booking.getTicket();
 		if(ticket==null) throw new TicketNotFoundException("No ticket is booked yet");
 		ticket.setTicketStatus(TicketStatus.CANCELLED);
-		return "Ticket Cancelled";
+		return "Ticket Cancelled and Ticket Price has Refunded.";
 	}
 	
 	
+	@Override
+	public String deleteBooking(int bookingId) {
+		Booking booking = fetchBooking(bookingId);
+		Ticket ticket = booking.getTicket();
+		ticketService.removeTicket(ticket);
+		bookingDao.delete(booking);
+		return "Deleted";
+	}
+
 	@Override
 	public BookingTransaction makePayment(String paymentMethod, double cost) {
 		BookingTransaction transaction = new BookingTransaction();

@@ -16,4 +16,5 @@ public interface IBookingService {
 	Ticket getTicket(int bookingId);
 	BookingTransaction makePayment(String paymentMethod, double cost);
 	Booking createBooking(BookingRequestDto bookingDto,double cost,int transactionId,Ticket ticket);
+	String deleteBooking(int bookingId);
 }

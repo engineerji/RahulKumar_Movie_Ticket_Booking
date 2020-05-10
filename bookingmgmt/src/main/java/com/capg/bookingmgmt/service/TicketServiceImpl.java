@@ -36,6 +36,12 @@ public class TicketServiceImpl implements ITicketService{
 		ticket.setTicketStatus(TicketStatus.CANCELLED);
 		ticketDao.save(ticket);
 	}
+	
+	@Override
+	public void removeTicket(Ticket ticket) {
+		ticketDao.delete(ticket);
+		
+	}
 
 	@Override
 	public Ticket createTicket(int noOfSeats,List<String> seatNames,String screenName) {

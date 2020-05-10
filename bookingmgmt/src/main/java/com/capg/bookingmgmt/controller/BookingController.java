@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -78,9 +79,15 @@ public class BookingController {
 		return response;
 	}
 	
-	@DeleteMapping("/cancel/{id}")
+	@PutMapping("/cancel/{id}")
 	ResponseEntity<String> cancelBooking(@PathVariable("id") int bookingId){
 		String msg = bookingService.cancelBooking(bookingId);
+		ResponseEntity<String> response = new ResponseEntity<String>(msg,HttpStatus.OK);
+		return response;
+	}
+	@DeleteMapping("/delete/{id}")
+	ResponseEntity<String> deleteBooking(@PathVariable("id") int bookingId){
+		String msg = bookingService.deleteBooking(bookingId);
 		ResponseEntity<String> response = new ResponseEntity<String>(msg,HttpStatus.OK);
 		return response;
 	}
