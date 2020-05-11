@@ -29,5 +29,37 @@ public class BookingTransaction {
 	public void setTransactionAmount(double transactionAmount) {
 		this.transactionAmount = transactionAmount;
 	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		long temp;
+		temp = Double.doubleToLongBits(transactionAmount);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + transactionId;
+		result = prime * result + ((transactionMethod == null) ? 0 : transactionMethod.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		BookingTransaction other = (BookingTransaction) obj;
+		if (Double.doubleToLongBits(transactionAmount) != Double.doubleToLongBits(other.transactionAmount))
+			return false;
+		if (transactionId != other.transactionId)
+			return false;
+		if (transactionMethod == null) {
+			if (other.transactionMethod != null)
+				return false;
+		} else if (!transactionMethod.equals(other.transactionMethod))
+			return false;
+		return true;
+	}
+	
 	
 }

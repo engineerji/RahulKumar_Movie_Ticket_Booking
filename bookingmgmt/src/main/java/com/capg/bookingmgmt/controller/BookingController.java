@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capg.bookingmgmt.dto.BookingDetails;
-import com.capg.bookingmgmt.dto.BookingRequestDto;
+import com.capg.bookingmgmt.dto.CreateBookingRequest;
 import com.capg.bookingmgmt.dto.Seat;
 import com.capg.bookingmgmt.dto.TicketDto;
 import com.capg.bookingmgmt.entities.Booking;
@@ -41,7 +41,7 @@ public class BookingController {
 	
 	
 	@PostMapping("/add")
-	ResponseEntity<BookingDetails> bookingprocess(@RequestBody BookingRequestDto bookingDto){
+	ResponseEntity<BookingDetails> bookingprocess(@RequestBody CreateBookingRequest bookingDto){
 		List<Seat> seats = chooseSeats(bookingDto.getChoosenSeats());
 		double cost = getCost(seats);
 		
@@ -95,7 +95,7 @@ public class BookingController {
 		return seats;
 	}
 	
-	public Booking convertBookingDto(BookingRequestDto bookingDto,double cost) {
+	public Booking convertBookingDto(CreateBookingRequest bookingDto,double cost) {
 		Booking booking = new Booking();
 		booking.setMovieId(bookingDto.getMovieId());
 		booking.setShowId(bookingDto.getShowId());
