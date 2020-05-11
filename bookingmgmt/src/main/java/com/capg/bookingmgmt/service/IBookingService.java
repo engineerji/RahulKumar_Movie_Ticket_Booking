@@ -10,10 +10,10 @@ import com.capg.bookingmgmt.entities.BookingTransaction;
 public interface IBookingService {
 	
 	Booking addBooking(Booking booking);
-	Booking fetchBooking(int bookingId);
+	Booking fetchBookingById(int bookingId);
 	List<Booking> fetchAllBookings();
 	String cancelBooking(int bookingId);
-	Ticket getTicket(int bookingId);
+	Ticket showTicket(int bookingId);
 	BookingTransaction makePayment(String paymentMethod, double cost);
 	Booking createBooking(BookingRequestDto bookingDto,double cost,int transactionId,Ticket ticket);
 	String deleteBooking(int bookingId);

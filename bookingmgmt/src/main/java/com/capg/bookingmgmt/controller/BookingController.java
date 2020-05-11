@@ -67,14 +67,14 @@ public class BookingController {
 	}
 	@GetMapping("/getTicket/{id}")
 	ResponseEntity<TicketDto> fetchTicket(@PathVariable("id") int bookingId){
-		Ticket ticket = bookingService.getTicket(bookingId);
+		Ticket ticket = bookingService.showTicket(bookingId);
 		TicketDto ticketDto=convertTicketDto(ticket);
 		ResponseEntity<TicketDto> response = new ResponseEntity<TicketDto>(ticketDto,HttpStatus.OK);
 		return response;
 	}
 	@GetMapping("/get/{id}")
 	ResponseEntity<Booking> fetchBooking(@PathVariable("id") int bookingId){
-		Booking booking = bookingService.fetchBooking(bookingId);
+		Booking booking = bookingService.fetchBookingById(bookingId);
 		ResponseEntity<Booking> response = new ResponseEntity<Booking>(booking,HttpStatus.OK);
 		return response;
 	}
@@ -129,7 +129,7 @@ public class BookingController {
 	     return response;
 	}
 	
-	@ExceptionHandler(BookingNotFoundException.class)
+	@ExceptionHandler(TicketNotFoundException.class)
 	public ResponseEntity<String> handleTicketNotFoundException(TicketNotFoundException exception){
 		Log.error("Ticket Exception",exception);
 		 String msg = exception.getMessage();

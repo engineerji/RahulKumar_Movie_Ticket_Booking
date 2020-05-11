@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capg.bookingmgmt.dao.IBookingDao;
+import com.capg.bookingmgmt.dao.ITicketDao;
 import com.capg.bookingmgmt.dao.ITransactionDao;
 import com.capg.bookingmgmt.dto.BookingRequestDto;
 import com.capg.bookingmgmt.entities.Booking;
@@ -30,7 +31,7 @@ public class BookingServiceImpl implements IBookingService{
 	private ITransactionDao transactionDao;
 	
 	@Autowired
-	ITicketService ticketService;
+	private ITicketDao ticketDao; 
 	
 	@Override
 	public Booking addBooking(Booking booking) {
@@ -39,7 +40,7 @@ public class BookingServiceImpl implements IBookingService{
 	}
 
 	@Override
-	public Booking fetchBooking(int bookingId) {
+	public Booking fetchBookingById(int bookingId) {
 		Optional<Booking> option= bookingDao.findById(bookingId);
 		if(!option.isPresent()) {
 			throw new BookingNotFoundException("Booking id is wrong. No booking exist with this booking id :"+bookingId);
@@ -56,19 +57,19 @@ public class BookingServiceImpl implements IBookingService{
 
 	@Override
 	public String cancelBooking(int bookingId) {
-		Booking booking = fetchBooking(bookingId);
+		Booking booking = fetchBookingById(bookingId);
 		Ticket ticket=booking.getTicket();
 		if(ticket==null) throw new TicketNotFoundException("No ticket is booked yet");
 		ticket.setTicketStatus(TicketStatus.CANCELLED);
-		return "Ticket Cancelled and Ticket Price has Refunded.";
+		return "Cancelled";
 	}
 	
 	
 	@Override
 	public String deleteBooking(int bookingId) {
-		Booking booking = fetchBooking(bookingId);
+		Booking booking = fetchBookingById(bookingId);
 		Ticket ticket = booking.getTicket();
-		ticketService.removeTicket(ticket);
+		ticketDao.delete(ticket);
 		bookingDao.delete(booking);
 		return "Deleted";
 	}
@@ -83,8 +84,8 @@ public class BookingServiceImpl implements IBookingService{
 	}
 
 	@Override
-	public Ticket getTicket(int bookingId) {
-		Booking booking = fetchBooking(bookingId);
+	public Ticket showTicket(int bookingId) {
+		Booking booking = fetchBookingById(bookingId);
 		Ticket ticket = booking.getTicket();
 		if(ticket==null) {
 			throw new TicketNotFoundException("No Ticket has booked yet.");
