@@ -24,11 +24,9 @@ import com.capg.bookingmgmt.dto.Seat;
 import com.capg.bookingmgmt.dto.TicketDto;
 import com.capg.bookingmgmt.entities.Booking;
 import com.capg.bookingmgmt.entities.Ticket;
-import com.capg.bookingmgmt.entities.BookingTransaction;
 import com.capg.bookingmgmt.exceptions.BookingNotFoundException;
 import com.capg.bookingmgmt.exceptions.TicketNotFoundException;
 import com.capg.bookingmgmt.service.IBookingService;
-import com.capg.bookingmgmt.service.ITicketService;
 import com.capg.bookingmgmt.util.SeatStatus;
 
 
@@ -41,20 +39,16 @@ public class BookingController {
 	@Autowired
 	private IBookingService bookingService;
 	
-	@Autowired
-	private ITicketService ticketService;
 	
 	@PostMapping("/add")
 	ResponseEntity<BookingDetails> bookingprocess(@RequestBody BookingRequestDto bookingDto){
 		List<Seat> seats = chooseSeats(bookingDto.getChoosenSeats());
 		double cost = getCost(seats);
 		
-		BookingTransaction transaction = bookingService.makePayment(bookingDto.getPaymentMethod(), cost);
-		Ticket ticket = ticketService.createTicket(seats.size(),bookingDto.getSeatName(),bookingDto.getScreenName());
+		Booking booking=convertBookingDto(bookingDto,cost);
+		booking = bookingService.createBooking(booking,bookingDto.getPaymentMethod(),bookingDto.getScreenName());
 		
-		Booking booking = bookingService.createBooking(bookingDto,cost,transaction.getTransactionId(),ticket);
 		BookingDetails bookingDetails = convertBooking(booking);
-		
 		ResponseEntity<BookingDetails> response = new ResponseEntity<BookingDetails>(bookingDetails,HttpStatus.OK);
 		return response;
 	}
@@ -101,10 +95,18 @@ public class BookingController {
 		return seats;
 	}
 	
+	public Booking convertBookingDto(BookingRequestDto bookingDto,double cost) {
+		Booking booking = new Booking();
+		booking.setMovieId(bookingDto.getMovieId());
+		booking.setShowId(bookingDto.getShowId());
+		booking.setSeatIds(bookingDto.getChoosenSeats());
+		booking.setTotalCost(cost);
+		return booking;
+	}
 	public BookingDetails convertBooking(Booking booking) {
 		BookingDetails bookingDetails = new BookingDetails(booking.getBookingId(), booking.getMovieId(), 
 				booking.getShowId(), booking.getBookingDate(),
-				booking.getTransactionId(), booking.getTotalCost(), booking.getSeatsId());
+				booking.getTransactionId(), booking.getTotalCost(), booking.getSeatIds());
 		return bookingDetails;
 	}
 	
@@ -117,7 +119,7 @@ public class BookingController {
 	}
 	
 	public TicketDto convertTicketDto(Ticket ticket) {
-		TicketDto ticketDto = new TicketDto(ticket.getTicketId(),ticket.getNoOfSeats(),ticket.getSeatName(),ticket.getScreenName());
+		TicketDto ticketDto = new TicketDto(ticket.getTicketId(),ticket.getNoOfSeats(),ticket.getSeatIds(),ticket.getScreenName());
 		return ticketDto;
 	}
 	

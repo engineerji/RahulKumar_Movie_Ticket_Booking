@@ -9,7 +9,6 @@ public class BookingRequestDto {
 	private int showId;
 	private String screenName;
 	List<Integer> choosenSeats;
-	List<String> seatName;
 	private String paymentMethod;
 	public int getCustomerId() {
 		return customerId;
@@ -42,12 +41,6 @@ public class BookingRequestDto {
 		this.choosenSeats = choosenSeats;
 	}
 	
-	public List<String> getSeatName() {
-		return seatName;
-	}
-	public void setSeatName(List<String> seatName) {
-		this.seatName = seatName;
-	}
 	public String getPaymentMethod() {
 		return paymentMethod;
 	}

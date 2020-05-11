@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import com.capg.bookingmgmt.dao.IBookingDao;
 import com.capg.bookingmgmt.dao.ITicketDao;
 import com.capg.bookingmgmt.dao.ITransactionDao;
-import com.capg.bookingmgmt.dto.BookingRequestDto;
 import com.capg.bookingmgmt.entities.Booking;
 import com.capg.bookingmgmt.entities.Ticket;
 import com.capg.bookingmgmt.entities.BookingTransaction;
@@ -61,6 +60,7 @@ public class BookingServiceImpl implements IBookingService{
 		Ticket ticket=booking.getTicket();
 		if(ticket==null) throw new TicketNotFoundException("No ticket is booked yet");
 		ticket.setTicketStatus(TicketStatus.CANCELLED);
+		ticketDao.save(ticket);
 		return "Cancelled";
 	}
 	
@@ -94,18 +94,23 @@ public class BookingServiceImpl implements IBookingService{
 	}
 
 	@Override
-	public Booking createBooking(BookingRequestDto bookingDto, double cost, int transactionId, Ticket ticket) {
-		Booking booking = new Booking();
-		booking.setMovieId(bookingDto.getMovieId());
-		booking.setShowId(bookingDto.getShowId());
+	public Booking createBooking(Booking booking,String paymentMethod,String screenName) {
+		BookingTransaction bookingTransaction = makePayment(paymentMethod,booking.getTotalCost());
+		Ticket ticket = createTicket(booking.getSeatIds(),screenName);
 		booking.setBookingDate(LocalDate.now());
-		booking.setSeatsId(bookingDto.getChoosenSeats());
+		booking.setTransactionId(bookingTransaction.getTransactionId());
 		booking.setTicket(ticket);
-		booking.setTotalCost(cost);
-		booking.setTransactionId(transactionId);
 		booking = addBooking(booking);
 		return booking;
 	}
-	
+	public Ticket createTicket(List<Integer> seatIds,String screenName) {
+		Ticket ticket= new Ticket();
+		ticket.setNoOfSeats(seatIds.size());
+		ticket.setScreenName(screenName);
+		ticket.setSeatIds(seatIds);
+		ticket.setTicketStatus(TicketStatus.BOOKED);
+		ticket = ticketDao.save(ticket);
+		return ticket;
+	}
 	
 }

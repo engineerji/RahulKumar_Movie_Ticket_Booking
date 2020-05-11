@@ -16,7 +16,7 @@ public class Ticket {
 	private int ticketId;
 	private int noOfSeats;
 	@ElementCollection
-	private List<String> seatName;
+	private List<Integer> seatIds;
 	private TicketStatus ticketStatus;
 	private String screenName;
 	
@@ -32,11 +32,11 @@ public class Ticket {
 	public void setNoOfSeats(int noOfSeats) {
 		this.noOfSeats = noOfSeats;
 	}
-	public List<String> getSeatName() {
-		return seatName;
+	public List<Integer> getSeatIds() {
+		return seatIds;
 	}
-	public void setSeatName(List<String> seatName) {
-		this.seatName = seatName;
+	public void setSeatIds(List<Integer> seatIds) {
+		this.seatIds = seatIds;
 	}
 	public TicketStatus isTicketStatus() {
 		return ticketStatus;

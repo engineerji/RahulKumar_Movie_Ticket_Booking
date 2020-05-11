@@ -1,6 +1,5 @@
 package com.capg.bookingmgmt.service;
 
-import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -49,16 +48,7 @@ public class TicketServiceImpl implements ITicketService{
 		
 	}
 
-	@Override
-	public Ticket createTicket(int noOfSeats,List<String> seatNames,String screenName) {
-		Ticket ticket= new Ticket();
-		ticket.setNoOfSeats(noOfSeats);
-		ticket.setSeatName(seatNames);
-		ticket.setScreenName(screenName);
-		ticket.setTicketStatus(TicketStatus.BOOKED);
-		ticket = addTicket(ticket);
-		return ticket;
-	}
+	
 
 	
 	

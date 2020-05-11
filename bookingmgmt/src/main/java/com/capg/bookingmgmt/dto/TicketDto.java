@@ -6,16 +6,16 @@ import java.util.List;
 public class TicketDto {
 	private int ticketId;
 	private int noOfSeats;
-	private List<String> seatName;
+	private List<Integer> seatIds;
 	private String screenName;
 	
 	
 	
-	public TicketDto(int ticketId, int noOfSeats, List<String> seatName, String screenName) {
+	public TicketDto(int ticketId, int noOfSeats, List<Integer> seatIds, String screenName) {
 		super();
 		this.ticketId = ticketId;
 		this.noOfSeats = noOfSeats;
-		this.seatName = seatName;
+		this.seatIds = seatIds;
 		this.screenName = screenName;
 	}
 	public int getTicketId() {
@@ -30,11 +30,11 @@ public class TicketDto {
 	public void setNoOfSeats(int noOfSeats) {
 		this.noOfSeats = noOfSeats;
 	}
-	public List<String> getSeatName() {
-		return seatName;
+	public List<Integer> getSeatIds() {
+		return seatIds;
 	}
-	public void setSeatName(List<String> seatName) {
-		this.seatName = seatName;
+	public void setSeatIds(List<Integer> seatIds) {
+		this.seatIds = seatIds;
 	}
 	public String getScreenName() {
 		return screenName;

@@ -21,7 +21,7 @@ public class Booking {
 	private int transactionId;
 	private double totalCost;
 	@ElementCollection
-	private List<Integer> seatsId;
+	private List<Integer> seatIds;
 	@OneToOne
 	private Ticket ticket;
 	
@@ -62,11 +62,11 @@ public class Booking {
 		this.totalCost = totalCost;
 	}
 	
-	public List<Integer> getSeatsId() {
-		return seatsId;
+	public List<Integer> getSeatIds() {
+		return seatIds;
 	}
-	public void setSeatsId(List<Integer> seatsId) {
-		this.seatsId = seatsId;
+	public void setSeatIds(List<Integer> seatIds) {
+		this.seatIds = seatIds;
 	}
 	public Ticket getTicket() {
 		return ticket;

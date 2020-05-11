@@ -38,15 +38,14 @@ class TicketTests {
 	@Test
 	public void getTicket_2() {
 		Ticket ticket = new Ticket();
-		//ticket.setTicketId(2);
 		ticket.setNoOfSeats(3);
 		ticket.setScreenName("Gold");
 		ticket.setTicketStatus(TicketStatus.BOOKED);
-		List<String> seats= new ArrayList<String>();
-		seats.add("L1");
-		seats.add("L2");
-		seats.add("L3");
-		ticket.setSeatName(seats);
+		List<Integer> seatIds= new ArrayList<Integer>();
+		seatIds.add(1);
+		seatIds.add(2);
+		seatIds.add(3);
+		ticket.setSeatIds(seatIds);
 		ticket=entityManager.merge(ticket);
 		Ticket result = ticketService.getTicket(1);
 		Assertions.assertEquals(ticket, result);;
