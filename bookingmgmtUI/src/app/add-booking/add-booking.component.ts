@@ -4,6 +4,7 @@ import { Movie } from '../model/movie';
 import { Theater } from '../model/theater';
 import { Screen } from '../model/screen';
 import { Booking } from '../model/booking';
+import { BookingModel } from '../model/bookingModel';
 
 @Component({
   selector: 'app-add-booking',
@@ -12,9 +13,12 @@ import { Booking } from '../model/booking';
 })
 export class AddBookingComponent implements OnInit {
 
+  _bookingModel=new BookingModel("");
+
   booking:Booking=null;
   seatShown=false;
   showbooking=false;
+
   cityList=["Delhi","Mumbai","Banglore","Chennai"];
   showList:Array<Show>=[];
   screenList:Array<Screen>=[];
@@ -68,9 +72,9 @@ export class AddBookingComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getTheater(event:any){
+  getTheater(){
     this.selectedTheaterList=[];
-    let city=event.target.value;
+    let city=this._bookingModel.city;
     this.theaterList.forEach(theater=>{
         if(theater.theaterCity===city){
           this.selectedTheaterList.push(theater);

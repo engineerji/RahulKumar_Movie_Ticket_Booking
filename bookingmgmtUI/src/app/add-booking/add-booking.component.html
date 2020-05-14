@@ -4,7 +4,7 @@
         
         <div class="form-group">
             <label class="form-group-label">City</label>
-            <select class="custom-select" #city="ngModel" name="city" required (change)="getTheater($event)" ngModel>
+            <select class="custom-select" #city="ngModel" name="city" required (change)="getTheater()" [(ngModel)]="_bookingModel.city">
                 <option selected value="">Choose City</option>
                 <option *ngFor="let city of cityList">{{city}}</option>
             </select>
