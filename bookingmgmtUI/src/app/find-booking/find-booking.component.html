@@ -1,6 +1,6 @@
 <h1 style="margin-left: 42%;">Find Booking</h1>
 <div class="container">
-    <form #searchBooking="ngForm">
+    <form #searchBookingForm="ngForm" (ngSubmit)="getBooking(searchBookingForm)">
         <div class="form-group">
             <label>Booking Id</label>
             <input type="text" #bookingId="ngModel" class="form-control" pattern="^\d+$" name="bookingId" placeholder="Enter the Booking Id" required maxlength="4" ngModel>
@@ -14,7 +14,7 @@
                 Booking Id should be numeric.
             </div>
         </div>
-       <button [disabled]="searchBooking.form.invalid" class="btn btn-primary" type="submit" (click)="getBooking(bookingId.value)">Search</button>
+       <button [disabled]="searchBookingForm.form.invalid" class="btn btn-primary" type="submit">Search</button>
     </form>
 </div>
 <div class="container" *ngIf="show">

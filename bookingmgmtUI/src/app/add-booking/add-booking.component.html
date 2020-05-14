@@ -21,9 +21,9 @@
                 <option *ngFor="let theater of selectedTheaterList" value="{{theater.theaterId}}">{{theater.theaterName}}</option>
             </select>
             <div *ngIf="theater.invalid && (theater.dirty || theater.touched)" class="alert alert-danger">
-                <div *ngIf="theater.errors.required">
+                <small *ngIf="theater.errors.required">
                    Please choose the Theater.
-                </div>
+                </small>
             </div>
         </div>
         
@@ -34,9 +34,9 @@
                 <option *ngFor="let movie of movieList" value="{{movie.movieId}}">{{movie.movieName}}</option>
             </select>
             <div *ngIf="movie.invalid && (movie.dirty || movie.touched)" class="alert alert-danger">
-                <div *ngIf="movie.errors.required">
+                <small *ngIf="movie.errors.required">
                    Please select the movie.
-                </div>
+                </small>
             </div>
         </div>
         <div class="form-group">
@@ -46,9 +46,9 @@
                 <option *ngFor="let screen of selectedScreenList" value="{{screen.screenName}}">{{screen.screenName}}</option>
             </select>
             <div *ngIf="screen.invalid && (screen.dirty || screen.touched)" class="alert alert-danger">
-                <div *ngIf="screen.errors.required">
+                <small *ngIf="screen.errors.required">
                    Please select the screen.
-                </div>
+                </small>
             </div>
         </div>
         <div class="form-group">
@@ -58,9 +58,9 @@
                 <option *ngFor="let show of selectedShowList" value="{{show.showId}}">{{show.showName}}</option>
             </select>
             <div *ngIf="show.invalid && (show.dirty || show.touched)" class="alert alert-danger">
-                <div *ngIf="show.errors.required">
+                <small *ngIf="show.errors.required">
                    Please select the show.
-                </div>
+                </small>
             </div>
         </div>
         <div class="form-group">
@@ -70,13 +70,13 @@
                 <label class="form-check-label">Cash</label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" #paymentMethod="ngModel"required name="paymentMethod" value="Online" ngModel>
+                <input class="form-check-input" type="radio" #paymentMethod="ngModel" required name="paymentMethod" value="Online" ngModel>
                 <label class="form-check-label">Online</label>
             </div>
             <div *ngIf="paymentMethod.invalid && (paymentMethod.dirty || paymentMethod.touched)" class="alert alert-danger">
-                <div *ngIf="paymentMethod.errors.required">
+                <small *ngIf="paymentMethod.errors.required">
                    Please select the show.
-                </div>
+                </small>
             </div>
         </div>
         <div *ngIf="seatShown">

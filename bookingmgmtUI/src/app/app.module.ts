@@ -8,6 +8,7 @@ import { AddBookingComponent } from './add-booking/add-booking.component';
 import { FindBookingComponent } from './find-booking/find-booking.component';
 import { GetTicketComponent } from './get-ticket/get-ticket.component';
 import { FormsModule } from '@angular/forms';
+import { CancelBookingComponent } from './cancel-booking/cancel-booking.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { FormsModule } from '@angular/forms';
     AllBookingsComponent,
     AddBookingComponent,
     FindBookingComponent,
-    GetTicketComponent
+    GetTicketComponent,
+    CancelBookingComponent
   ],
   imports: [
     BrowserModule,

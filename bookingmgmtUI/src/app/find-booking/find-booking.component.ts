@@ -30,11 +30,10 @@ export class FindBookingComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getBooking(value){
-    let bookingId=parseInt(value);
-    console.log(bookingId);
+  getBooking(searchBookingForm:any){
+    let bookingId=searchBookingForm.value.bookingId;
     this.bookings.forEach(booking =>{
-      if(booking.bookingId===bookingId){
+      if(booking.bookingId==bookingId){
         this.booking=booking;
         this.show=true;
       }

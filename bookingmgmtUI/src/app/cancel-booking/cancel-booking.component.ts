@@ -3,13 +3,14 @@ import { BookingResponse } from '../dto/bookingresponse';
 import { Ticket } from '../model/ticket';
 
 @Component({
-  selector: 'app-get-ticket',
-  templateUrl: './get-ticket.component.html',
-  styleUrls: ['./get-ticket.component.css']
+  selector: 'app-cancel-booking',
+  templateUrl: './cancel-booking.component.html',
+  styleUrls: ['./cancel-booking.component.css']
 })
-export class GetTicketComponent implements OnInit {
-  ticket:Ticket=null;
+export class CancelBookingComponent implements OnInit {
+
   show:boolean=false;
+  msg:string="Invalid Id";
   bookings:Array<BookingResponse>=[];
   constructor(){
     let ticket1 = new Ticket(152,3,[24,25,26],"Gold");
@@ -28,15 +29,15 @@ export class GetTicketComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getTicket(searchTicketForm:any){
-    let bookingId=searchTicketForm.value.bookingId;
+  cancelBooking(cancelForm:any){
+    let bookingId=cancelForm.value.bookingId;
     console.log(bookingId);
     this.bookings.forEach(booking =>{
       if(booking.bookingId==bookingId){
-        this.ticket=booking.ticket;
-        this.show=true;
+        this.msg="Cancelled";
+          this.show=true;
       }
     });
+    this.show=true;
   }
-
 }
