@@ -31,7 +31,7 @@
             <label class="form-group-label">Movie</label>
             <select class="custom-select" #movie="ngModel" (change)="getShow($event)" name="movie" required ngModel>
                 <option selected value="">Choose Movie</option>
-                <option *ngFor="let movie of movieList" value="{{movie.movieId}}">{{movie.movieName}}</option>
+                <option *ngFor="let movie of selectedMovieList" value="{{movie.movieId}}">{{movie.movieName}}</option>
             </select>
             <div *ngIf="movie.invalid && (movie.dirty || movie.touched)" class="alert alert-danger">
                 <small *ngIf="movie.errors.required">
