@@ -73,13 +73,8 @@ public class BookingController {
 		return response;
 	}
 	
-	@PutMapping("/cancel/{id}")
-	ResponseEntity<String> cancelBooking(@PathVariable("id") int bookingId){
-		String msg = bookingService.cancelBooking(bookingId);
-		ResponseEntity<String> response = new ResponseEntity<String>(msg,HttpStatus.OK);
-		return response;
-	}
-	@DeleteMapping("/delete/{id}")
+	
+	@DeleteMapping("/cancel/{id}")
 	ResponseEntity<String> deleteBooking(@PathVariable("id") int bookingId){
 		String msg = bookingService.deleteBooking(bookingId);
 		ResponseEntity<String> response = new ResponseEntity<String>(msg,HttpStatus.OK);

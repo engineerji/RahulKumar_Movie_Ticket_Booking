@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BookingResponse } from '../dto/bookingresponse';
 import { Ticket } from '../model/ticket';
 import { BookingServiceService } from '../services/booking-service.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-find-booking',
@@ -23,20 +24,17 @@ export class FindBookingComponent implements OnInit {
   }
 
   getBooking(searchBookingForm:any){
-    let temp=0;
     let bookingId=searchBookingForm.value.bookingId;
-    this.bookings=this.__service.getBookings();
-    this.bookings.forEach(booking =>{
-      if(booking.bookingId==bookingId){
+    let response:Observable<BookingResponse>=this.__service.getBooking(bookingId);
+    response.subscribe((booking:BookingResponse) =>{
         this.booking=booking;
         this.show=true;
         this.errorShow=false;
-        temp=1;
-      }
-    });
-    if(temp==0){
-      this.errorShow=true;
-      this.show=false;
-    }
+    },
+      error =>{
+        this.errorShow=true;
+        this.show=false;
+        console.log("Error "+error)
+      });
   }
 }

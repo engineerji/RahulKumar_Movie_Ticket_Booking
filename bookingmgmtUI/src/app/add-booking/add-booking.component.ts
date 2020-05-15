@@ -6,6 +6,7 @@ import { Screen } from '../model/screen';
 import { Booking } from '../model/booking';
 import { BookingModel } from '../model/bookingModel';
 import { BookingServiceService } from '../services/booking-service.service';
+import { BookingResponse } from '../dto/bookingresponse';
 
 @Component({
   selector: 'app-add-booking',
@@ -18,7 +19,7 @@ export class AddBookingComponent implements OnInit {
 
   __service:BookingServiceService;
 
-  booking:Booking=null;
+  booking:BookingResponse=null;
   seatShown=false;
   showbooking=false;
 
@@ -48,16 +49,13 @@ export class AddBookingComponent implements OnInit {
   }
   
   getMovieAndScreen(event:any){
-    this.selectedMovieList=[];
-    this.selectedScreenList=[];
     this.selectedMovieList=this.__service.getMovieList();
-    let screenList=this.__service.getScreenList();
+    this.selectedScreenList=[];
+    let theaterList=this.__service.getTheaterList();
     let theaterId=event.target.value;
-
-
-    screenList.forEach(screen =>{
-      if(screen.theaterId==theaterId){
-        this.selectedScreenList.push(screen);
+    theaterList.forEach(theater =>{
+      if(theater.theaterId==theaterId){
+        this.selectedScreenList=theater.screenList;
       }
     });
   }
@@ -93,9 +91,17 @@ export class AddBookingComponent implements OnInit {
 
   submit(bookingForm:any){
     let bookingDetails= bookingForm.value;
-    console.log(bookingDetails.seats);
-    this.booking=new Booking(bookingDetails.movie,bookingDetails.show,bookingDetails.screen,
-      bookingDetails.paymentMethod,bookingDetails.seats);
-      this.showbooking=true;
+    let booking:Booking=new Booking(bookingDetails.movie,bookingDetails.show,bookingDetails.screen,
+      bookingDetails.paymentMethod,[25,75,96]);
+
+    let result = this.__service.addBooking(booking);
+    result.subscribe((bookingResp:BookingResponse) =>{
+      this.booking=bookingResp;
+    },
+      err =>{
+        console.log("Error "+err);
+      });
+    this.showbooking=true;
+    bookingForm.reset();
   }
 }

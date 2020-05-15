@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BookingResponse } from '../dto/bookingresponse';
 import { Ticket } from '../model/ticket';
 import { BookingServiceService } from '../services/booking-service.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-cancel-booking',
@@ -24,17 +25,16 @@ export class CancelBookingComponent implements OnInit {
   cancelBooking(cancelForm:any){
     let temp=0;
     let bookingId=cancelForm.value.bookingId;
-    this.bookings=this.__service.getBookings();
-    this.bookings.forEach(booking =>{
-      if(booking.bookingId==bookingId){
-        this.msg="Cancelled";
-        this.show=true;
-        temp=1;
-      }
-    });
-    if(temp==0){
+    let response:Observable<string>= this.__service.cancelBooking(bookingId);
+    response.subscribe((msg:string) =>{
+      this.msg="Cancelled";
+      console.log(msg);
+      this.show=true;
+  },
+    error =>{
       this.msg="Invalid Id"
-    }
-    this.show=true;
+      this.show=true;
+      console.log("Error "+error)
+    });
   }
 }

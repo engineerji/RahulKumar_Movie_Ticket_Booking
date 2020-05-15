@@ -1,13 +1,15 @@
+import { Screen } from './screen';
+
 export class Theater{
     theaterId:number;
     theaterName:string;
     theaterCity:string;
     movieIds:number[];
-    screenList:string[];
+    screenList:Screen[];
     managerName:string;
     managerContact:string;
 
-    constructor(theaterId:number, theaterName:string, theaterCity:string, movieIds:number[], screenList:string[], managerName:string, managerContact:string){
+    constructor(theaterId:number, theaterName:string, theaterCity:string, movieIds:number[], screenList:Screen[], managerName:string, managerContact:string){
         this.theaterId=theaterId;
         this.theaterName=theaterName;
         this.theaterCity=theaterCity;

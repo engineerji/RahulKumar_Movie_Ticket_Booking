@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { BookingResponse } from '../dto/bookingresponse';
 import { Ticket } from '../model/ticket';
 import { BookingServiceService } from '../services/booking-service.service';
+import { Observable } from 'rxjs';
+import { tick } from '@angular/core/testing';
 
 @Component({
   selector: 'app-get-ticket',
@@ -22,20 +24,19 @@ export class GetTicketComponent implements OnInit {
 
   getTicket(searchTicketForm:any){
     let bookingId=searchTicketForm.value.bookingId;
-    this.bookings=this.__service.getBookings();
-    let temp=0;
-    this.bookings.forEach(booking =>{
-      if(booking.bookingId==bookingId){
-        this.ticket=booking.ticket;
-        this.show=true;
-        this.errorShow=false;
-        temp=1;
-      }
-    });
-    if(temp==0){
+
+    let result:Observable<Ticket> = this.__service.getTicket(bookingId);
+    result.subscribe((ticket:Ticket) =>{
+      this.ticket=ticket;
+      this.show=true;
+      this.errorShow=false;
+    },
+    error =>{
+      console.log("Error "+error);
       this.show=false;
       this.errorShow=true;
-    }
+      
+    });
   }
 
 }

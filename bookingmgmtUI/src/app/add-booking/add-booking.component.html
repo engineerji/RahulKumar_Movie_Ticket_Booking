@@ -93,19 +93,25 @@
     <h2 style="margin-left: 40%;"> Booking Details</h2>
     <table class="table">
         <tr>
+            <th scope="row">Booking Id</th><td>{{booking.bookingId}}</td>
+        </tr>
+        <tr>
             <th scope="row">Movie Id</th><td>{{booking.movieId}}</td>
         </tr>
         <tr>
             <th scope="row">Show Id</th><td>{{booking.showId}}</td>
         </tr>
         <tr>
-            <th scope="row">Screen Name</th><td>{{booking.screenName}}</td>
+            <th scope="row">Booking Date</th><td>{{booking.bookingDate}}</td>
         </tr>
         <tr>
-            <th scope="row">Payment Method</th><td>{{booking.paymentMethod}}</td>
+            <th scope="row">Transaction Id</th><td>{{booking.transactionId}}</td>
         </tr>
         <tr>
-            <th scope="row">Seats</th><td>{{booking.choosenSeats}}</td>
+            <th scope="row">Total Cost</th><td>{{booking.totalCost}}</td>
+        </tr>
+        <tr>
+            <th scope="row">Seats</th><td>{{booking.seatIds}}</td>
         </tr>
     </table>
 </div>

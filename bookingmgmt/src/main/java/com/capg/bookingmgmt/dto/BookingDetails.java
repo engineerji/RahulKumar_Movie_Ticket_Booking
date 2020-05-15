@@ -9,11 +9,11 @@ public class BookingDetails {
 	private int movieId;
 	private int showId;
 	private LocalDate bookingDate;
-	private long transactionId;
+	private int transactionId;
 	private double totalCost;
 	private List<Integer> seatIds;
 	
-	public BookingDetails(int bookingId, int movieId, int showId, LocalDate bookingDate, long transactionId,
+	public BookingDetails(int bookingId, int movieId, int showId, LocalDate bookingDate, int transactionId,
 			double totalCost, List<Integer> seatIds) {
 		super();
 		this.bookingId = bookingId;
@@ -48,10 +48,10 @@ public class BookingDetails {
 	public void setBookingDate(LocalDate bookingDate) {
 		this.bookingDate = bookingDate;
 	}
-	public long getTransactionId() {
+	public int getTransactionId() {
 		return transactionId;
 	}
-	public void setTransactionId(long transactionId) {
+	public void setTransactionId(int transactionId) {
 		this.transactionId = transactionId;
 	}
 	public double getTotalCost() {

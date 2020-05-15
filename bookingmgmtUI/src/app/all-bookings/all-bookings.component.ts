@@ -10,13 +10,13 @@ import { BookingServiceService } from '../services/booking-service.service';
 })
 export class AllBookingsComponent implements OnInit {
 
-  bookings:Array<BookingResponse>=[];
+  bookings:BookingResponse[]=[];
   __service:BookingServiceService;
   constructor(__service:BookingServiceService){
     this.__service=__service;
   }
   ngOnInit(): void {
-    this.bookings=this.__service.getBookings();
+    this.__service.fetchAllBookings().subscribe(booking =>{this.bookings=booking});
   }
 
 }
