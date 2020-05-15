@@ -1,6 +1,6 @@
 <h1 style="margin-left: 40%;">Movie Ticket Booking</h1>
 <div class="container">
-    <form #bookingForm="ngForm" (ngSubmit)="submit(bookingForm)">
+    <form #bookingForm="ngForm" (ngSubmit)="bookingForm.valid && submit(bookingForm)">
         
         <div class="form-group">
             <label class="form-group-label">City</label>

@@ -7,6 +7,8 @@ import { Booking } from '../model/booking';
 import { BookingModel } from '../model/bookingModel';
 import { BookingServiceService } from '../services/booking-service.service';
 import { BookingResponse } from '../dto/bookingresponse';
+import { Observable } from 'rxjs';
+import { BookingDetailsResponse } from '../dto/bookingdetailsresponse';
 
 @Component({
   selector: 'app-add-booking',
@@ -94,14 +96,14 @@ export class AddBookingComponent implements OnInit {
     let booking:Booking=new Booking(bookingDetails.movie,bookingDetails.show,bookingDetails.screen,
       bookingDetails.paymentMethod,[25,75,96]);
 
-    let result = this.__service.addBooking(booking);
+    let result:Observable<BookingDetailsResponse> = this.__service.addBooking(booking);
     result.subscribe((bookingResp:BookingResponse) =>{
       this.booking=bookingResp;
     },
       err =>{
         console.log("Error "+err);
       });
+    
     this.showbooking=true;
-    bookingForm.reset();
   }
 }

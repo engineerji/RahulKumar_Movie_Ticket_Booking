@@ -8,7 +8,7 @@ import { Ticket } from '../model/ticket';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Booking } from '../model/booking';
-import { BookingDetails } from '../model/bookingDetails';
+import { BookingDetailsResponse } from '../dto/bookingdetailsresponse';
 
 @Injectable({
   providedIn: 'root'
@@ -74,9 +74,9 @@ export class BookingServiceService {
         return observable;
      }
 
-     addBooking(booking:Booking):Observable<BookingResponse>{
+     addBooking(booking:Booking):Observable<BookingDetailsResponse>{
         let url = this.baseBookingUrl+"/add";
-        let result:Observable<BookingResponse> = this.client.post<BookingResponse>(url,booking);
+        let result:Observable<BookingDetailsResponse> = this.client.post<BookingDetailsResponse>(url,booking);
         return result;
      }
 
@@ -91,9 +91,9 @@ export class BookingServiceService {
       return result;
    }
 
-   cancelBooking(bookingId:number):Observable<string>{
-    let url = this.baseBookingUrl+"/delete/"+bookingId;
-    let result:Observable<string> = this.client.delete<string>(url);
+   cancelBooking(bookingId:number):Observable<Ticket>{
+    let url = this.baseBookingUrl+"/cancel/"+bookingId;
+    let result:Observable<Ticket> = this.client.put<Ticket>(url,null);
     return result;
  }
 }
