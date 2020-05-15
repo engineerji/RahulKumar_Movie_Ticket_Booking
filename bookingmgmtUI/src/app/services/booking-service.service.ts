@@ -3,6 +3,8 @@ import { Show } from '../model/show';
 import { Movie } from '../model/movie';
 import { Screen } from '../model/screen';
 import { Theater } from '../model/theater';
+import { BookingResponse } from '../dto/bookingresponse';
+import { Ticket } from '../model/ticket';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +15,7 @@ export class BookingServiceService {
   screenList:Array<Screen>=[];
   movieList:Array<Movie>=[];
   theaterList:Array<Theater>=[];
+  bookingList:Array<BookingResponse>=[];
 
   constructor() { 
     let show1=new Show(87,new Date(),new Date(),[42,58,67],"Morning","F&F");
@@ -50,6 +53,19 @@ export class BookingServiceService {
     this.theaterList.push(theater2);
     this.theaterList.push(theater3);
     this.theaterList.push(theater4);
+
+    let ticket1 = new Ticket(152,3,[24,25,26],"Gold");
+    let ticket2 = new Ticket(154,3,[2,3,4],"Silver");
+    let ticket3 = new Ticket(155,3,[28,29,30],"Silver");
+    let ticket4 = new Ticket(156,3,[52,53,54],"Silver");
+    let booking1 = new BookingResponse(1,245,548,new Date(),1546,3000,[24,25,26],ticket1);
+    let booking2 = new BookingResponse(2,48,268,new Date("2020-05-11"),1548,4500,[2,3,4],ticket2);
+    let booking3 = new BookingResponse(3,25,623,new Date("2020-04-29"),1576,1500,[28,29,30],ticket3);
+    let booking4 = new BookingResponse(4,24,512,new Date("2020-05-10"),1572,900,[52,53,54],ticket4);
+    this.bookingList.push(booking1);
+    this.bookingList.push(booking2);
+    this.bookingList.push(booking3);
+    this.bookingList.push(booking4);
      }
      
      getTheaterList(){
@@ -64,5 +80,9 @@ export class BookingServiceService {
      }
      getShowList(){
        return this.showList;
+     }
+
+     getBookings(){
+       return this.bookingList;
      }
 }
