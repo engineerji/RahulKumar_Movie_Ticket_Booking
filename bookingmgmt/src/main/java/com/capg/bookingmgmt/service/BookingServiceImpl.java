@@ -55,24 +55,14 @@ public class BookingServiceImpl implements IBookingService{
 	}
 
 	@Override
-	public Ticket cancelBooking(int bookingId) {
-		Booking booking = fetchBookingById(bookingId);
-		Ticket ticket=booking.getTicket();
-		if(ticket==null) throw new TicketNotFoundException("No ticket is booked yet");
-		ticket.setTicketStatus(TicketStatus.CANCELLED);
-		ticketDao.save(ticket);
-		return ticket;
-	}
-	
-	
-	@Override
-	public String deleteBooking(int bookingId) {
+	public String cancelBooking(int bookingId) {
 		Booking booking = fetchBookingById(bookingId);
 		Ticket ticket = booking.getTicket();
 		ticketDao.delete(ticket);
 		bookingDao.delete(booking);
-		return "Deleted";
+		return "Cancelled";
 	}
+	
 
 	@Override
 	public BookingTransaction makePayment(String paymentMethod, double cost) {

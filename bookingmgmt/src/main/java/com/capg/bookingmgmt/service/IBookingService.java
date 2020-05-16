@@ -10,9 +10,8 @@ public interface IBookingService {
 	Booking addBooking(Booking booking);
 	Booking fetchBookingById(int bookingId);
 	List<Booking> fetchAllBookings();
-	Ticket cancelBooking(int bookingId);
+	String cancelBooking(int bookingId);
 	Ticket showTicket(int bookingId);
 	BookingTransaction makePayment(String paymentMethod, double cost);
 	Booking createBooking(Booking booking, String paymentMethod,String screenName);
-	String deleteBooking(int bookingId);
 }

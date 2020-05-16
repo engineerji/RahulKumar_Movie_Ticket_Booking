@@ -17,7 +17,7 @@ import { BookingDetailsResponse } from '../dto/bookingdetailsresponse';
 })
 export class AddBookingComponent implements OnInit {
 
-  _bookingModel=new BookingModel("");
+  _bookingModel=new BookingModel("",[]);
 
   __service:BookingServiceService;
 
@@ -30,6 +30,7 @@ export class AddBookingComponent implements OnInit {
   selectedMovieList:Array<Movie>=[];
   selectedScreenList:Array<Screen>=[];
   selectedShowList:Array<Show>=[];
+  selectedSeats:number[]=[];
   seatIds:Array<number>=[];
 
   constructor(__service:BookingServiceService) {  
@@ -86,15 +87,23 @@ export class AddBookingComponent implements OnInit {
     this.selectedShowList.forEach(show =>{
       if(showId==show.showId){
         this.seatIds=show.seatIds;
+        //this._bookingModel.selectedSeats=show.seatIds;
       }
     });
     this.seatShown=true;
   }
 
   submit(bookingForm:any){
+    this.selectedSeats=[];
     let bookingDetails= bookingForm.value;
+    let selectedSeatIds=this._bookingModel.selectedSeats;
+    this.seatIds.forEach(seat =>{
+      if(selectedSeatIds[seat]==true){
+        this.selectedSeats.push(seat);
+      }
+    });
     let booking:Booking=new Booking(bookingDetails.movie,bookingDetails.show,bookingDetails.screen,
-      bookingDetails.paymentMethod,[25,75,96]);
+      bookingDetails.paymentMethod,this.selectedSeats);
 
     let result:Observable<BookingDetailsResponse> = this.__service.addBooking(booking);
     result.subscribe((bookingResp:BookingResponse) =>{

@@ -24,8 +24,8 @@ export class CancelBookingComponent implements OnInit {
 
   cancelBooking(cancelForm:any){
     let bookingId=cancelForm.value.bookingId;
-    let response:Observable<Ticket>= this.__service.cancelBooking(bookingId);
-    response.subscribe((mesg:Ticket) =>{
+    let response:Observable<String>= this.__service.cancelBooking(bookingId);
+    response.subscribe((mesg:String) =>{
       this.msg="Cancelled";
       console.log(mesg);
       this.show=true;

@@ -1,7 +1,7 @@
 <h1 style="margin-left: 40%;">Movie Ticket Booking</h1>
 <div class="container">
     <form #bookingForm="ngForm" (ngSubmit)="bookingForm.valid && submit(bookingForm)">
-        
+
         <div class="form-group">
             <label class="form-group-label">City</label>
             <select class="custom-select" #city="ngModel" name="city" required (change)="getTheater()" [(ngModel)]="_bookingModel.city">
@@ -67,11 +67,11 @@
             <label>Payment Method</label>
             <div class="form-check">
                 <input class="form-check-input" type="radio" #paymentMethod="ngModel" selected  required name="paymentMethod" value="Cash" ngModel>
-                <label class="form-check-label">Cash</label>
+                <p class="form-check-label">Cash</p>
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="radio" #paymentMethod="ngModel" required name="paymentMethod" value="Online" ngModel>
-                <label class="form-check-label">Online</label>
+                <p class="form-check-label">Online</p>
             </div>
             <div *ngIf="paymentMethod.invalid && (paymentMethod.dirty || paymentMethod.touched)" class="alert alert-danger">
                 <small *ngIf="paymentMethod.errors.required">
@@ -82,9 +82,10 @@
         <div *ngIf="seatShown">
             <label>Available Seats</label>
             <div class="form-check" *ngFor="let seat of seatIds">
-                <input class="form-check-input" type="checkbox" #seats="ngModel" name="seats" value="{{seat}}" ngModel>
-                <label class="form-check-label">{{seat}}</label>
+                <input class="form-check-input" type="checkbox" #seats name="seats" [(ngModel)]="_bookingModel.selectedSeats[seat]">
+                <p class="form-check-label">{{seat}}</p>
             </div>
+           
         </div>
         <button [disabled]="bookingForm.form.invalid" class="btn btn-primary">Book Ticket</button>
     </form>

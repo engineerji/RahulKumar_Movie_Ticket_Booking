@@ -91,9 +91,9 @@ export class BookingServiceService {
       return result;
    }
 
-   cancelBooking(bookingId:number):Observable<Ticket>{
+   cancelBooking(bookingId:number):Observable<String>{
     let url = this.baseBookingUrl+"/cancel/"+bookingId;
-    let result:Observable<Ticket> = this.client.put<Ticket>(url,null);
+    let result:Observable<String> = this.client.put<String>(url,null);
     return result;
  }
 }
