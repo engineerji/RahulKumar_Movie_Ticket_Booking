@@ -22,6 +22,10 @@ public class BookingManagementApplication {
 		return new RestTemplate();
 	}
 	
+	/**
+	 *
+	 * for handling cross origin requests
+	 */
 	@Bean
 	public CorsFilter corsFilter(){
 		UrlBasedCorsConfigurationSource src=new UrlBasedCorsConfigurationSource();
