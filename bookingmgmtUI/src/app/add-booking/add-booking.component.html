@@ -1,5 +1,5 @@
-<h1 style="margin-left: 40%;">Movie Ticket Booking</h1>
 <div class="container">
+    <h3 style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">Booking Form</h3>
     <form #bookingForm="ngForm" (ngSubmit)="bookingForm.valid && submit(bookingForm)">
 
         <div class="form-group">
@@ -16,7 +16,7 @@
         </div>
         <div class="form-group">
             <label class="form-group-label">Theater</label>
-            <select class="custom-select" #theater="ngModel" name="theater" (change)="getMovieAndScreen($event)" required ngModel>
+            <select class="custom-select" #theater="ngModel" name="theater" (change)="getMovieAndScreen($event.target.value)" required ngModel>
                 <option selected value="">Choose Theater</option>
                 <option *ngFor="let theater of selectedTheaterList" value="{{theater.theaterId}}">{{theater.theaterName}}</option>
             </select>
@@ -29,7 +29,7 @@
         
         <div class="form-group">
             <label class="form-group-label">Movie</label>
-            <select class="custom-select" #movie="ngModel" (change)="getShow($event)" name="movie" required ngModel>
+            <select class="custom-select" #movie="ngModel" (change)="getShow($event.target.value)" name="movie" required ngModel>
                 <option selected value="">Choose Movie</option>
                 <option *ngFor="let movie of selectedMovieList" value="{{movie.movieId}}">{{movie.movieName}}</option>
             </select>
@@ -82,12 +82,14 @@
         <div *ngIf="seatShown">
             <label>Available Seats</label>
             <div class="form-check" *ngFor="let seat of seatIds">
-                <input class="form-check-input" type="checkbox" #seats name="seats" [(ngModel)]="_bookingModel.selectedSeats[seat]">
+                <input class="form-check-input" type="checkbox" #seats="ngModel" required name="seats" [(ngModel)]="_bookingModel.selectedSeats[seat]">
                 <p class="form-check-label">{{seat}}</p>
             </div>
-           
         </div>
-        <button [disabled]="bookingForm.form.invalid" class="btn btn-primary">Book Ticket</button>
+        <div>
+            <button [disabled]="bookingForm.form.invalid" class="btn btn-primary">Book Ticket</button>
+        </div>
+        
     </form>
 </div>
 <div class="container" *ngIf="showbooking">

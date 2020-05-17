@@ -16,7 +16,10 @@ export class AllBookingsComponent implements OnInit {
     this.__service=__service;
   }
   ngOnInit(): void {
-    this.__service.fetchAllBookings().subscribe(booking =>{this.bookings=booking});
+    this.__service.fetchAllBookings().subscribe(booking =>{this.bookings=booking},
+      error =>{
+        console.log("Error "+error);
+      });
   }
 
 }

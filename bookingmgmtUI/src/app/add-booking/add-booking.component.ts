@@ -41,43 +41,37 @@ export class AddBookingComponent implements OnInit {
   }
 
   getTheater(){
-    let theaterList=this.__service.getTheaterList();
-    this.selectedTheaterList=[];
-    let city=this._bookingModel.city;
-    theaterList.forEach(theater=>{
-        if(theater.theaterCity===city){
-          this.selectedTheaterList.push(theater);
-        }
+    console.log(this._bookingModel.city);
+    this.__service.getTheaterList(this._bookingModel.city).subscribe(theaterList =>{
+      this.selectedTheaterList=theaterList;
+    },
+    error =>{
+      console.log("Error "+error);
     });
   }
   
-  getMovieAndScreen(event:any){
-    this.selectedMovieList=this.__service.getMovieList();
-    this.selectedScreenList=[];
-    let theaterList=this.__service.getTheaterList();
-    let theaterId=event.target.value;
-    theaterList.forEach(theater =>{
-      if(theater.theaterId==theaterId){
-        this.selectedScreenList=theater.screenList;
-      }
+  getMovieAndScreen(theaterId:any){
+    this.__service.getMovieList(theaterId).subscribe(movieList =>{
+      this.selectedMovieList=movieList;
+    },
+    error =>{
+      console.log("Error "+error);
+    });
+
+    this.__service.getScreenList(theaterId).subscribe(screenList =>{
+      this.selectedScreenList=screenList;
+    },
+    error =>{
+      console.log("Error "+error);
     });
   }
 
-  getShow(event:any){
-    this.selectedShowList=[];
-    let movieList=this.__service.getMovieList();
-    let showList=this.__service.getShowList();
-    let movieId=event.target.value;
-    let movieName="";
-    movieList.forEach(movie =>{
-      if(movie.movieId==movieId){
-        movieName=movie.movieName;
-      }
-    });
-    showList.forEach(show =>{
-      if(show.movieName==movieName){
-        this.selectedShowList.push(show);
-      }
+  getShow(movieId:any){
+    this.__service.getShowList(movieId).subscribe(showList =>{
+      this.selectedShowList=showList;
+    },
+    error =>{
+      console.log("Error "+error);
     });
   }
 
@@ -87,7 +81,6 @@ export class AddBookingComponent implements OnInit {
     this.selectedShowList.forEach(show =>{
       if(showId==show.showId){
         this.seatIds=show.seatIds;
-        //this._bookingModel.selectedSeats=show.seatIds;
       }
     });
     this.seatShown=true;
@@ -105,7 +98,7 @@ export class AddBookingComponent implements OnInit {
     let booking:Booking=new Booking(bookingDetails.movie,bookingDetails.show,bookingDetails.screen,
       bookingDetails.paymentMethod,this.selectedSeats);
 
-    let result:Observable<BookingDetailsResponse> = this.__service.addBooking(booking);
+    let result:Observable<BookingResponse> = this.__service.addBooking(booking);
     result.subscribe((bookingResp:BookingResponse) =>{
       this.booking=bookingResp;
     },
