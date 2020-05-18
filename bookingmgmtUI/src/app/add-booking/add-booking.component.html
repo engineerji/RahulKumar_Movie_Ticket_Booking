@@ -64,6 +64,18 @@
             </div>
         </div>
         <div class="form-group">
+            <label class="form-group-label">Languages</label>
+            <select class="custom-select" #language="ngModel" name="language" required [(ngModel)]="_bookingModel.language">
+                <option selected value="">Choose Language</option>
+                <option *ngFor="let language of languages" value="{{language}}">{{language}}</option>
+            </select>
+            <div *ngIf="language.invalid && (language.dirty || language.touched)" class="alert alert-danger">
+                <small *ngIf="language.errors.required">
+                   Please select the language.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
             <label>Payment Method</label>
             <div class="form-check">
                 <input class="form-check-input" type="radio" #paymentMethod="ngModel" selected  required name="paymentMethod" value="Cash" ngModel>

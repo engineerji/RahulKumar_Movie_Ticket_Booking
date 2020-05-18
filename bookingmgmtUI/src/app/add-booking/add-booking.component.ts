@@ -17,7 +17,7 @@ import { BookingDetailsResponse } from '../dto/bookingdetailsresponse';
 })
 export class AddBookingComponent implements OnInit {
 
-  _bookingModel=new BookingModel("",[]);
+  _bookingModel=new BookingModel("",[],"");
 
   __service:BookingServiceService;
 
@@ -32,6 +32,7 @@ export class AddBookingComponent implements OnInit {
   selectedShowList:Array<Show>=[];
   selectedSeats:number[]=[];
   seatIds:Array<number>=[];
+  languages:Array<String>=[];
 
   constructor(__service:BookingServiceService) {  
     this.__service=__service;
@@ -67,12 +68,20 @@ export class AddBookingComponent implements OnInit {
   }
 
   getShow(movieId:any){
+    this.languages=[];
+  
     this.__service.getShowList(movieId).subscribe(showList =>{
       this.selectedShowList=showList;
     },
     error =>{
       console.log("Error "+error);
     });
+    this.selectedMovieList.forEach(movie =>{
+      if(movieId==movie.movieId){
+        this.languages=movie.languages;
+      }
+    });
+
   }
 
   getSeats(event:any){
