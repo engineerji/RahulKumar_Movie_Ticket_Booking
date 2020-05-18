@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 })
 export class FindBookingComponent implements OnInit {
 
- 
+  searchBookingId:number;
   booking:BookingResponse=null;
   show:boolean=false;
   errorShow=false;
@@ -23,9 +23,9 @@ export class FindBookingComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getBooking(searchBookingForm:any){
-    let bookingId=searchBookingForm.value.bookingId;
-    let response:Observable<BookingResponse>=this.__service.getBooking(bookingId);
+  getBooking(){
+    
+    let response:Observable<BookingResponse>=this.__service.getBooking(this.searchBookingId);
     response.subscribe((booking:BookingResponse) =>{
         this.booking=booking;
         this.show=true;

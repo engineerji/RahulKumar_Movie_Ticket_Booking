@@ -11,20 +11,20 @@ import { Observable } from 'rxjs';
 })
 export class CancelBookingComponent implements OnInit {
 
-
+  cancelBookingId:number;
   show:boolean=false;
   msg:string="";
   bookings:Array<BookingResponse>=[];
    __service:BookingServiceService;
+
   constructor(__service:BookingServiceService){
     this.__service=__service;
   }
   ngOnInit(): void {
   }
 
-  cancelBooking(cancelForm:any){
-    let bookingId=cancelForm.value.bookingId;
-    let response:Observable<String>= this.__service.cancelBooking(bookingId);
+  cancelBooking(){
+    let response:Observable<String>= this.__service.cancelBooking(this.cancelBookingId);
     response.subscribe((mesg:String) =>{
       this.msg="Cancelled";
       console.log(mesg);

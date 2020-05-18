@@ -1,9 +1,9 @@
 <div class="container">
     <h3 style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">Find Booking</h3>
-    <form #searchBookingForm="ngForm" (ngSubmit)="getBooking(searchBookingForm)">
+    <form #searchBookingForm="ngForm" (ngSubmit)="getBooking()">
         <div class="form-group">
             <label>Booking Id</label>
-            <input type="text" #bookingId="ngModel" class="form-control" pattern="^\d+$" name="bookingId" placeholder="Enter the Booking Id" required maxlength="4" ngModel>
+            <input type="text" #bookingId="ngModel" class="form-control" pattern="^\d+$" name="bookingId" placeholder="Enter the Booking Id" required maxlength="4" [(ngModel)]="searchBookingId">
         </div>
         <div *ngIf="bookingId.invalid && (bookingId.dirty || bookingId.touched)" class="alert alert-danger">
             <div *ngIf="bookingId.errors.required">
@@ -21,28 +21,28 @@
     <h2 style="margin-left: 40%;"> Booking Details</h2>
     <table class="table">
         <tr>
-            <th scope="row">Booking Id</th><td>{{booking.bookingId}}</td>
+            <th >Booking Id</th><td>{{booking.bookingId}}</td>
         </tr>
         <tr>
-            <th scope="row">Movie Id</th><td>{{booking.movieId}}</td>
+            <th >Movie Id</th><td>{{booking.movieId}}</td>
         </tr>
         <tr>
-            <th scope="row">Show Id</th><td>{{booking.showId}}</td>
+            <th >Show Id</th><td>{{booking.showId}}</td>
         </tr>
         <tr>
-            <th scope="row">Booking Date</th><td>{{booking.bookingDate}}</td>
+            <th >Booking Date</th><td>{{booking.bookingDate}}</td>
         </tr>
         <tr>
-            <th scope="row">Transaction Id</th><td>{{booking.transactionId}}</td>
+            <th>Transaction Id</th><td>{{booking.transactionId}}</td>
         </tr>
         <tr>
-            <th scope="row">Total Cost</th><td>{{booking.totalCost}}</td>
+            <th >Total Cost</th><td>{{booking.totalCost}}</td>
         </tr>
         <tr>
-            <th scope="row">Seats</th><td>{{booking.seatIds}}</td>
+            <th>Seats</th><td>{{booking.seatIds}}</td>
         </tr>
         <tr>
-            <th scope="row">Ticket Id</th><td>{{booking.ticket.ticketId}}</td>
+            <th>Ticket Id</th><td>{{booking.ticket.ticketId}}</td>
         </tr>
     </table>
 </div>

@@ -14,6 +14,7 @@ export class GetTicketComponent implements OnInit {
   ticket:Ticket=null;
   show:boolean=false;
   errorShow=false;
+  searchBookingId:number;
   bookings:Array<BookingResponse>=[];
   __service:BookingServiceService;
   constructor(__service:BookingServiceService){
@@ -22,10 +23,9 @@ export class GetTicketComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getTicket(searchTicketForm:any){
-    let bookingId=searchTicketForm.value.bookingId;
+  getTicket(){
 
-    let result:Observable<Ticket> = this.__service.getTicket(bookingId);
+    let result:Observable<Ticket> = this.__service.getTicket(this.searchBookingId);
     result.subscribe((ticket:Ticket) =>{
       this.ticket=ticket;
       this.show=true;

@@ -1,10 +1,10 @@
 <h1 style="margin-left: 42%;">Cancel Booking</h1>
 <div class="container">
     <h3 style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">Cancel Booking</h3>
-    <form #cancelForm="ngForm" (ngSubmit)="cancelBooking(cancelForm)">
+    <form #cancelForm="ngForm" (ngSubmit)="cancelBooking()">
         <div class="form-group">
             <label>Booking Id</label>
-            <input type="text" #bookingId="ngModel" class="form-control" pattern="^\d+$" name="bookingId" placeholder="Enter the Booking Id" required maxlength="4" ngModel>
+            <input type="text" #bookingId="ngModel" class="form-control" pattern="^\d+$" name="bookingId" placeholder="Enter the Booking Id" required maxlength="4" [(ngModel)]="cancelBookingId">
         </div>
         <div *ngIf="bookingId.invalid && (bookingId.dirty || bookingId.touched)" class="alert alert-danger">
             <div *ngIf="bookingId.errors.required">

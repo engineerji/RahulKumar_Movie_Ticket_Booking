@@ -1,9 +1,9 @@
 <div class="container">
     <h3 style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">Get Ticket</h3>
-    <form #searchTicketForm="ngForm" (ngSubmit)="getTicket(searchTicketForm)">
+    <form #searchTicketForm="ngForm" (ngSubmit)="getTicket()">
         <div class="form-group">
             <label>Booking Id</label>
-            <input type="text" #bookingId="ngModel" class="form-control" pattern="^\d+$" name="bookingId" placeholder="Enter the Booking Id" required maxlength="4" ngModel>
+            <input type="text" #bookingId="ngModel" class="form-control" pattern="^\d+$" name="bookingId" placeholder="Enter the Booking Id" required maxlength="4" [(ngModel)]="searchBookingId">
         </div>
         <div *ngIf="bookingId.invalid && (bookingId.dirty || bookingId.touched)" class="alert alert-danger">
             <div *ngIf="bookingId.errors.required">
@@ -21,16 +21,16 @@
     <h2 style="margin-left: 40%;"> Ticket Details</h2>
     <table class="table">
         <tr>
-            <th scope="row">Ticket Id</th><td>{{ticket.ticketId}}</td>
+            <th>Ticket Id</th><td>{{ticket.ticketId}}</td>
         </tr>
         <tr>
-            <th scope="row">Number Of Seats</th><td>{{ticket.noOfSeats}}</td>
+            <th>Number Of Seats</th><td>{{ticket.noOfSeats}}</td>
         </tr>
         <tr>
-            <th scope="row">Seats</th><td>{{ticket.seatIds}}</td>
+            <th >Seats</th><td>{{ticket.seatIds}}</td>
         </tr>
         <tr>
-            <th scope="row">Screen Name</th><td>{{ticket.screenName}}</td>
+            <th >Screen Name</th><td>{{ticket.screenName}}</td>
         </tr>
     </table>
 </div>
