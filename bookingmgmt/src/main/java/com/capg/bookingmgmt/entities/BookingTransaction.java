@@ -31,34 +31,17 @@ public class BookingTransaction {
 	}
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		long temp;
-		temp = Double.doubleToLongBits(transactionAmount);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + transactionId;
-		result = prime * result + ((transactionMethod == null) ? 0 : transactionMethod.hashCode());
-		return result;
+		String transactionIdString = ""+transactionId;
+		return transactionIdString.hashCode();
 	}
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
+		if(obj == null || obj instanceof BookingTransaction)
 			return false;
 		BookingTransaction other = (BookingTransaction) obj;
-		if (Double.doubleToLongBits(transactionAmount) != Double.doubleToLongBits(other.transactionAmount))
-			return false;
-		if (transactionId != other.transactionId)
-			return false;
-		if (transactionMethod == null) {
-			if (other.transactionMethod != null)
-				return false;
-		} else if (!transactionMethod.equals(other.transactionMethod))
-			return false;
-		return true;
+		return this.transactionId == other.transactionId;
 	}
 	
 	

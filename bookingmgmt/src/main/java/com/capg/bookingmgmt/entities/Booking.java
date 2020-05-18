@@ -76,56 +76,20 @@ public class Booking {
 	}
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((bookingDate == null) ? 0 : bookingDate.hashCode());
-		result = prime * result + bookingId;
-		result = prime * result + movieId;
-		result = prime * result + ((seatIds == null) ? 0 : seatIds.hashCode());
-		result = prime * result + showId;
-		result = prime * result + ((ticket == null) ? 0 : ticket.hashCode());
-		long temp;
-		temp = Double.doubleToLongBits(totalCost);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + transactionId;
-		return result;
+		String bookingIdString = ""+bookingId;
+		return bookingIdString.hashCode();
 	}
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
+		if(obj == null || obj instanceof Booking)
 			return false;
 		Booking other = (Booking) obj;
-		if (bookingDate == null) {
-			if (other.bookingDate != null)
-				return false;
-		} else if (!bookingDate.equals(other.bookingDate))
-			return false;
-		if (bookingId != other.bookingId)
-			return false;
-		if (movieId != other.movieId)
-			return false;
-		if (seatIds == null) {
-			if (other.seatIds != null)
-				return false;
-		} else if (!seatIds.equals(other.seatIds))
-			return false;
-		if (showId != other.showId)
-			return false;
-		if (ticket == null) {
-			if (other.ticket != null)
-				return false;
-		} else if (!ticket.equals(other.ticket))
-			return false;
-		if (Double.doubleToLongBits(totalCost) != Double.doubleToLongBits(other.totalCost))
-			return false;
-		if (transactionId != other.transactionId)
-			return false;
-		return true;
+		return this.bookingId == other.bookingId;
 	}
+	
+	
 	
 	
 }
