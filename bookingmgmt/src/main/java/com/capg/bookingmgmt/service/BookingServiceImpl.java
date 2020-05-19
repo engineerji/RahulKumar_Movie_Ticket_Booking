@@ -32,12 +32,22 @@ public class BookingServiceImpl implements IBookingService{
 	@Autowired
 	private ITicketDao ticketDao; 
 	
+	/**
+	 * saving the booking
+	 * @param booking
+	 * @return
+	 */
 	@Override
 	public Booking addBooking(Booking booking) {
 		booking = bookingDao.save(booking);
 		return booking;
 	}
 
+	/**
+	 * fetching booking by bookingId
+	 * @param bookingId
+	 * @return
+	 */
 	@Override
 	public Booking fetchBookingById(int bookingId) {
 		Optional<Booking> option= bookingDao.findById(bookingId);
@@ -48,12 +58,21 @@ public class BookingServiceImpl implements IBookingService{
 		return booking;
 	}
 
+	/**
+	 * fetching all bookings
+	 * @return
+	 */
 	@Override
 	public List<Booking> fetchAllBookings() {
 		List<Booking> bookingList = bookingDao.findAll();
 		return bookingList;
 	}
 
+	/**
+	 * cancel booking
+	 * @param bookingId
+	 * @return
+	 */
 	@Override
 	public String cancelBooking(int bookingId) {
 		Booking booking = fetchBookingById(bookingId);
@@ -63,7 +82,10 @@ public class BookingServiceImpl implements IBookingService{
 		return "Cancelled";
 	}
 	
-
+	/**
+	 * making payment returning bookingTransaction
+	 * @return
+	 */
 	@Override
 	public BookingTransaction makePayment(String paymentMethod, double cost) {
 		BookingTransaction transaction = new BookingTransaction();
@@ -73,6 +95,11 @@ public class BookingServiceImpl implements IBookingService{
 		return transaction;
 	}
 
+	/**
+	 * fetching ticket with bookingId
+	 * @param bookingId
+	 * @return
+	 */
 	@Override
 	public Ticket showTicket(int bookingId) {
 		Booking booking = fetchBookingById(bookingId);
@@ -83,6 +110,9 @@ public class BookingServiceImpl implements IBookingService{
 		return ticket;
 	}
 
+	/**
+	 * generating booking
+	 */
 	@Override
 	public Booking createBooking(Booking booking,String paymentMethod,String screenName) {
 		BookingTransaction bookingTransaction = makePayment(paymentMethod,booking.getTotalCost());
@@ -93,6 +123,13 @@ public class BookingServiceImpl implements IBookingService{
 		booking = addBooking(booking);
 		return booking;
 	}
+	
+	/**
+	 * generating ticket
+	 * @param seatIds
+	 * @param screenName
+	 * @return
+	 */
 	public Ticket createTicket(List<Integer> seatIds,String screenName) {
 		Ticket ticket= new Ticket();
 		ticket.setNoOfSeats(seatIds.size());

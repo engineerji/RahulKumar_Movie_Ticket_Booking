@@ -11,6 +11,7 @@ import { GetTicketComponent } from './get-ticket/get-ticket.component';
 import { FormsModule } from '@angular/forms';
 import { CancelBookingComponent } from './cancel-booking/cancel-booking.component';
 import { BookingServiceService } from './services/booking-service.service';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { BookingServiceService } from './services/booking-service.service';
     AddBookingComponent,
     FindBookingComponent,
     GetTicketComponent,
-    CancelBookingComponent
+    CancelBookingComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

@@ -19,12 +19,22 @@ public class TicketServiceImpl implements ITicketService{
 	@Autowired
 	private ITicketDao ticketDao;
 	
+	/**
+	 * storing ticket
+	 * @param ticket
+	 * @return
+	 */
 	@Override
 	public Ticket addTicket(Ticket ticket) {
 		ticket = ticketDao.save(ticket);
 		return ticket;
 	}
-
+	
+	/**
+	 * getting ticket with ticketId
+	 * @param ticketId
+	 * @return
+	 */
 	@Override
 	public Ticket getTicket(int ticketId) {
 		Optional<Ticket> option= ticketDao.findById(ticketId); 
@@ -35,6 +45,11 @@ public class TicketServiceImpl implements ITicketService{
 		return ticket;
 	}
 
+	/**
+	 * canceling ticket with ticketId
+	 * @param ticketId
+	 * @return
+	 */
 	@Override
 	public void cancelTicket(int ticketId) {
 		Ticket ticket = ticketDao.findById(ticketId).get();
@@ -42,6 +57,10 @@ public class TicketServiceImpl implements ITicketService{
 		ticketDao.save(ticket);
 	}
 	
+	/**
+	 * deleting ticket
+	 * @param ticket
+	 */
 	@Override
 	public void removeTicket(Ticket ticket) {
 		ticketDao.delete(ticket);
